@@ -15,6 +15,11 @@
                 <div>
                     <h4>{{ $article->title }}</h4>
                     <div class="">
+                        <span class=" badge bg-black">
+                            {{ $article->category_id }}
+                        </span>
+                    </div>
+                    <div class="">
 
                         {{ $article->description }}
 

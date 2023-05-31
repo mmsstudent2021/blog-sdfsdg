@@ -14,7 +14,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
+                            <th>Article</th>
+                            <th>Category</th>
                             <th>Owner</th>
                             <th>Control</th>
                             <th>Updated At</th>
@@ -31,6 +32,9 @@
                                     <span class=" small text-black-50">
                                         {{ Str::limit($article->description, 30, '...') }}
                                     </span>
+                                </td>
+                                <td>
+                                    {{ $article->category_id }}
                                 </td>
 
                                 <td>{{ $article->user_id }}</td>
@@ -83,7 +87,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class=" text-center">
+                                <td colspan="7" class=" text-center">
                                     <p>
                                         There is no record
                                     </p>

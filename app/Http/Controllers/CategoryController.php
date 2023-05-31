@@ -40,6 +40,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        return abort(404);
     }
 
     /**
