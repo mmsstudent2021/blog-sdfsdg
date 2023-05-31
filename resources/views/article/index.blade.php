@@ -6,7 +6,7 @@
                 <h3>Article List</h3>
                 <hr>
 
-                <div class="">
+                <div class=" mb-3">
                     <a href="{{ route("article.create") }}" class="btn btn-outline-dark">Create</a>
                 </div>
 
@@ -83,16 +83,19 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class=" text-center">
+                                <td colspan="6" class=" text-center">
                                     <p>
                                         There is no record
                                     </p>
-                                    <a class=" btn btn-sm btn-primary" href="{{ route('category.create') }}">Create Item</a>
+                                    <a class=" btn btn-sm btn-primary" href="{{ route('article.create') }}">Create Item</a>
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+                <div class="">
+                    {{ $articles->onEachSide(1)->links() }}
+                </div>
 
             </div>
         </div>

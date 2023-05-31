@@ -63,13 +63,15 @@
                                     <p>
                                         There is no record
                                     </p>
-                                    <a class=" btn btn-sm btn-primary" href="{{ route('category.create') }}">Create
-                                        Item</a>
+
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+                <div class="">
+                    {{ $users->onEachSide(1)->links() }}
+                </div>
 
             </div>
         </div>

@@ -14,18 +14,18 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::when(request()->has("keyword"),function($query){
+        $articles = Article::when(request()->has("keyword"), function ($query) {
             $keyword = request()->keyword;
-            $query->where("title","like","%".$keyword."%");
-            $query->orWhere("description","like","%".$keyword."%");
+            $query->where("title", "like", "%" . $keyword . "%");
+            $query->orWhere("description", "like", "%" . $keyword . "%");
         })
-        ->when(request()->has('title'),function($query){
-            $sortType = request()->title ?? 'asc';
-            $query->orderBy("title",$sortType);
-        })
-        ->paginate(7)->withQueryString();
+            ->when(request()->has('title'), function ($query) {
+                $sortType = request()->title ?? 'asc';
+                $query->orderBy("title", $sortType);
+            })
+            ->paginate(7)->withQueryString();
 
-        return view("article.index",compact('articles'));
+        return view("article.index", compact('articles'));
     }
 
     /**
@@ -54,7 +54,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        
+        return view('article.show', compact('article'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
 
     /**
@@ -70,7 +70,13 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+        $article->update([
+            "title" => $request->title,
+            "description" => $request->description
+        ]);
+
+        return redirect()->route("article.index")->with("message", $article->title . " is updated");
+
     }
 
     /**
@@ -78,6 +84,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->route("article.index")->with("message", "Article is deleted");
+
     }
 }

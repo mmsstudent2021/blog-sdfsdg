@@ -9,7 +9,8 @@
                     @csrf
                     <div class="mb-3">
                         <label class=" form-label" for="">Article Title</label>
-                        <input type="text" class=" form-control @error('title') is-invalid @enderror" name="title">
+                        <input type="text" class=" form-control @error('title') is-invalid @enderror"
+                            value="{{ old('title') }}" name="title">
                         @error('title')
                             <div class=" invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -17,7 +18,7 @@
 
                     <div class="mb-3">
                         <label class=" form-label" for="">Description</label>
-                        <textarea name="description" class=" form-control @error('description') is-invalid @enderror" rows="7"></textarea>
+                        <textarea name="description" class=" form-control @error('description') is-invalid @enderror" rows="7">{{ old('description') }}</textarea>
                         @error('description')
                             <div class=" invalid-feedback">{{ $message }}</div>
                         @enderror
