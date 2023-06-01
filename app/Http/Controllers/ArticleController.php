@@ -6,6 +6,7 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
@@ -72,6 +73,12 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+        // if(!Gate::allows('article-update',$article)){
+        //     return abort(403,"ma pay woo kwar");
+        // }
+
+        Gate::authorize('article-update',$article);
+
         $article->update([
             "title" => $request->title,
             "description" => $request->description,
