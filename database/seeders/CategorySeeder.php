@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +19,8 @@ class CategorySeeder extends Seeder
         foreach($categories as $category){
             $arr[] = [
                 "title" => $category,
-                "user_id" => rand(1,11),
+                // "user_id" => User::where("role","admin")->get()->random()->id,
+                "user_id" => 12,
                 "updated_at" => now(),
                 "created_at" => now(),
             ];

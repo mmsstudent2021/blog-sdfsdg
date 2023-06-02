@@ -7,7 +7,7 @@
                 <hr>
 
                 <div class=" mb-3">
-                    <a href="{{ route("article.create") }}" class="btn btn-outline-dark">Create</a>
+                    <a href="{{ route('article.create') }}" class="btn btn-outline-dark">Create</a>
                 </div>
 
                 <table class=" table">
@@ -44,17 +44,31 @@
                                             href="{{ route('article.show', $article->id) }}">
                                             <i class=" bi bi-info"></i>
                                         </a>
-                                        <a href="{{ route('article.edit', $article->id) }}"
-                                            class="btn btn-sm btn-outline-dark">
-                                            <i class=" bi bi-pencil"></i>
-                                        </a>
-                                        <button form="aritcleDeleteFrom{{ $article->id }}" class=" btn btn-sm btn-outline-dark">
-                                            <i class=" bi bi-trash3"></i>
-                                        </button>
+                                        @can('update', $article)
+                                            <a href="{{ route('article.edit', $article->id) }}"
+                                                class="btn btn-sm btn-outline-dark">
+                                                <i class=" bi bi-pencil"></i>
+                                            </a>
+                                        @endcan
+
+                                        {{-- @cannot('article-update', $article)
+                                            <button onclick="alert(`U don't have permission to do this`)"
+                                                class="btn btn-sm btn-outline-dark">
+                                                <i class=" bi bi-pencil"></i>
+                                            </button>
+                                        @endcannot --}}
+
+                                        @can('delete', $article)
+                                            <button form="aritcleDeleteFrom{{ $article->id }}"
+                                                class=" btn btn-sm btn-outline-dark">
+                                                <i class=" bi bi-trash3"></i>
+                                            </button>
+                                        @endcan
+
 
                                     </div>
-                                    <form id="aritcleDeleteFrom{{ $article->id }}" class=" d-inline-block" action="{{ route('article.destroy', $article->id) }}"
-                                        method="post">
+                                    <form id="aritcleDeleteFrom{{ $article->id }}" class=" d-inline-block"
+                                        action="{{ route('article.destroy', $article->id) }}" method="post">
                                         @method('delete')
                                         @csrf
 
@@ -64,11 +78,11 @@
                                     <p class=" small mb-0">
                                         <i class=" bi bi-clock"></i>
 
-                                        {{ $article->updated_at->format("h:i a") }}
+                                        {{ $article->updated_at->format('h:i a') }}
                                     </p>
                                     <p class=" small mb-0">
                                         <i class=" bi bi-calendar"></i>
-                                        {{ $article->updated_at->format("d M Y") }}
+                                        {{ $article->updated_at->format('d M Y') }}
                                     </p>
 
                                 </td>
@@ -76,11 +90,11 @@
                                     <p class=" small mb-0">
                                         <i class=" bi bi-clock"></i>
 
-                                        {{ $article->created_at->format("h:i a") }}
+                                        {{ $article->created_at->format('h:i a') }}
                                     </p>
                                     <p class=" small mb-0">
                                         <i class=" bi bi-calendar"></i>
-                                        {{ $article->created_at->format("d M Y") }}
+                                        {{ $article->created_at->format('d M Y') }}
                                     </p>
 
                                 </td>
