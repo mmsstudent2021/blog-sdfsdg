@@ -11,6 +11,8 @@
                         <tr>
                             <th>#</th>
                             <th>Information</th>
+                            <th>Category Count</th>
+                            <th>Article Count</th>
                             <th>Control</th>
                             <th>Updated At</th>
                             <th>Created At</th>
@@ -26,6 +28,12 @@
                                     <span class=" small text-black-50">
                                         {{ $user->email }}
                                     </span>
+                                </td>
+                                <td>
+                                    {{ $user->categories->count() }}
+                                </td>
+                                <td>
+                                    {{ $user->articles->count() }}
                                 </td>
 
                                 <td>

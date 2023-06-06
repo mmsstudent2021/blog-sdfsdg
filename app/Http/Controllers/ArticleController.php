@@ -20,6 +20,9 @@ class ArticleController extends Controller
             $query->where("title", "like", "%" . $keyword . "%");
             $query->orWhere("description", "like", "%" . $keyword . "%");
         })
+            ->when(Auth::user()->role !== 'admin', function ($query) {
+                $query->where("user_id", Auth::id());
+            })
             ->when(request()->has('title'), function ($query) {
                 $sortType = request()->title ?? 'asc';
                 $query->orderBy("title", $sortType);
@@ -65,7 +68,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        Gate::authorize('update',$article);
+        Gate::authorize('update', $article);
         return view('article.edit', compact('article'));
     }
 
@@ -81,7 +84,7 @@ class ArticleController extends Controller
         //     return abort(403);
         // }
 
-        Gate::authorize('update',$article);
+        Gate::authorize('update', $article);
 
         $article->update([
             "title" => $request->title,
@@ -97,7 +100,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        Gate::authorize("delete",$article);
+        Gate::authorize("delete", $article);
         $article->delete();
         return redirect()->route("article.index")->with("message", "Article is deleted");
     }

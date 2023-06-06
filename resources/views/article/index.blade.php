@@ -16,7 +16,9 @@
                             <th>#</th>
                             <th>Article</th>
                             <th>Category</th>
-                            <th>Owner</th>
+                            @can('admin-only')
+                                <th>Owner</th>
+                            @endcan
                             <th>Control</th>
                             <th>Updated At</th>
                             <th>Created At</th>
@@ -34,10 +36,12 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{ $article->category_id }}
+                                    {{ $article->category->title ?? "Unkown" }}
                                 </td>
 
-                                <td>{{ $article->user_id }}</td>
+                                @can('admin-only')
+                                    <td>{{ $article->user->name }}</td>
+                                @endcan
                                 <td>
                                     <div class="btn-group">
                                         <a class=" btn btn-sm btn-outline-dark"

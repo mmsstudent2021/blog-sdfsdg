@@ -38,15 +38,17 @@ class AuthServiceProvider extends ServiceProvider
         //     return $user->id === $article->user_id;
         // });
 
-        Gate::before(function(User $user){
+        Gate::before(function (User $user) {
             // $admins = [1,5,7];
             // if(in_array($user->id,$admins)){
             //     return true;
             // }
         });
 
-        Gate::define("show-user-list",function(User $user){
-            return $user->role === "admin";
-        });
+        // Gate::define("show-user-list",function(User $user){
+        //     return $user->role === "admin";
+        // });
+
+        Gate::define("admin-only", fn (User $user) => $user->role === "admin");
     }
 }

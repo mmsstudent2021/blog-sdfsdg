@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Category::class);
+        // $this->authorize('viewAny',Category::class);
         $categories = Category::latest('id')->get();
         return view('category.index', compact('categories'));
     }
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Category::class);
+        // $this->authorize('create',Category::class);
 
         return view('category.create');
     }
@@ -35,7 +35,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $this->authorize('create',Category::class);
+        // $this->authorize('create',Category::class);
 
         Category::create(["title" => $request->title, "user_id" => Auth::id()]);
         return redirect()->route('category.index');
@@ -80,7 +80,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->authorize('delete',Category::class);
+        // $this->authorize('delete',Category::class);
 
         $category->delete();
         return redirect()->back();

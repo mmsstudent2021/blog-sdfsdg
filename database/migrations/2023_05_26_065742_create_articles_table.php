@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->longText("description");
-            $table->unsignedBigInteger("category_id");
-            $table->unsignedBigInteger("user_id");
+            $table->foreignId("category_id");
+            $table->foreignId("user_id");
             $table->timestamps();
         });
     }
