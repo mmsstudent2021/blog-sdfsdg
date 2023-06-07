@@ -24,5 +24,8 @@
             @yield('content')
         </main>
     </div>
+    <footer class=" bg-dark py-5 text-center text-white">
+        <p class="mb-0">Page Footer</p>
+    </footer>
 </body>
 </html>
