@@ -8,6 +8,7 @@ use App\Models\Article;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -52,7 +53,9 @@ class ArticleController extends Controller
     {
         $article = Article::create([
             "title" => $request->title,
+            "slug" => Str::slug($request->title),
             "description" => $request->description,
+            "excerpt" => Str::words($request->description,30,"..."),
             "category_id" => $request->category,
             "user_id" => Auth::id()
         ]);
@@ -92,7 +95,9 @@ class ArticleController extends Controller
 
         $article->update([
             "title" => $request->title,
+            "slug" => Str::slug($request->title),
             "description" => $request->description,
+            "excerpt" => Str::words($request->description,30,"..."),
             "category_id" => $request->category
         ]);
 

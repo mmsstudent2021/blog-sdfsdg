@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(PageController::class)->group(function(){
     Route::get("/","index")->name("index");
-    Route::get("/article-detail/{id}","show")->name("detail");
+    Route::get("/article-detail/{slug}","show")->name("detail");
+    Route::get("/category/{slug}","categorized")->name("categorized");
 });
 
 Auth::routes();

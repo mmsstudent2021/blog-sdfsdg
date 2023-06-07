@@ -1,12 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (request()->has('keyword'))
+    @if (request()->has('keyword') && $category->title)
         <div class=" d-flex justify-content-between">
-            <p class=" mb-2 fw-bold">Showing result by ' {{ request()->keyword }} '</p>
+            <p class=" mb-2 fw-bold">
+                Showing result is search by ' {{ request()->keyword }} ' and ' {{ $category->title }} category '
+            </p>
+            <a href="{{ route('index') }}" class=" text-dark">See All</a>
+        </div>
+    @elseif ($category->title)
+        <div class=" d-flex justify-content-between">
+            <p class=" mb-2 fw-bold">Showing result by ' {{ $category->title }} category '</p>
             <a href="{{ route('index') }}" class=" text-dark">See All</a>
         </div>
     @endif
+
+
 
     @forelse ($articles as $article)
         <div class=" card mb-3">
