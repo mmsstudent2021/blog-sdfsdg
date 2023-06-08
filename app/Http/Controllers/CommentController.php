@@ -34,6 +34,9 @@ class CommentController extends Controller
         $comment->content = $request->content;
         $comment->user_id = Auth::id();
         $comment->article_id = $request->article_id;
+        if($request->has("parent_id")){
+            $comment->parent_id = $request->parent_id;
+        }
         $comment->save();
         return redirect()->back();
     }
