@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Models\Category;
@@ -24,6 +25,7 @@ Route::controller(PageController::class)->group(function(){
     Route::get("/article-detail/{slug}","show")->name("detail");
     Route::get("/category/{slug}","categorized")->name("categorized");
 });
+Route::resource("comment",CommentController::class)->only(["store","update","delete"])->middleware("auth");
 
 Auth::routes();
 

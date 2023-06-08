@@ -17,7 +17,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
+    <div id="app" class=" min-vh-100 d-flex flex-column">
         @include("layouts.nav")
 
 
@@ -33,10 +33,11 @@
                 </div>
             </div>
         </main>
-       
+
+        <footer class=" bg-dark py-5 text-center text-white mt-auto">
+            <p class="mb-0">Page Footer</p>
+        </footer>
     </div>
-    <footer class=" bg-dark py-5 text-center text-white">
-        <p class="mb-0">Page Footer</p>
-    </footer>
+
 </body>
 </html>
