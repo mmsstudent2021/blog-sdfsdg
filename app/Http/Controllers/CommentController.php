@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -29,7 +30,12 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        $comment = new Comment();
+        $comment->content = $request->content;
+        $comment->user_id = Auth::id();
+        $comment->article_id = $request->article_id;
+        $comment->save();
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +67,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $this->authorize('delete',$comment);
+        $comment->delete();
+
+        return redirect()->back();
     }
 }

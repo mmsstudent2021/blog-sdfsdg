@@ -22,7 +22,8 @@ class UpdateCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "content" => "required|max:1000",
+            "article_id" => "required|exists:articles,id"
         ];
     }
 }

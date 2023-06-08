@@ -25,7 +25,7 @@ Route::controller(PageController::class)->group(function(){
     Route::get("/article-detail/{slug}","show")->name("detail");
     Route::get("/category/{slug}","categorized")->name("categorized");
 });
-Route::resource("comment",CommentController::class)->only(["store","update","delete"])->middleware("auth");
+Route::resource("comment",CommentController::class)->only(["store","update","destroy"])->middleware("auth");
 
 Auth::routes();
 
