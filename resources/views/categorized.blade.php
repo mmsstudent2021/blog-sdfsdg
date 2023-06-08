@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
 
 @section('content')
     @if (request()->has('keyword') && $category->title)

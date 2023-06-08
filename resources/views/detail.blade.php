@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
 
 @section('content')
     <h3 class=" mb-2">

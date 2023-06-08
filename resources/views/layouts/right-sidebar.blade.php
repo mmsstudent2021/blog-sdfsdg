@@ -20,3 +20,14 @@
         @endforeach
     </div>
 </div>
+
+<div class=" recent-articles mb-4">
+    <p class=" mb-2 fw-bold">Recent Articles</p>
+    <div class=" list-group">
+
+        @foreach (App\Models\Article::latest("id")->limit(5)->get() as $article)
+            <a href="{{ route('detail',$article->slug) }}"
+                class=" list-group-item list-group-item-action">{{ $article->title }}</a>
+        @endforeach
+    </div>
+</div>
