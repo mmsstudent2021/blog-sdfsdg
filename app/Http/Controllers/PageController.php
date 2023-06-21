@@ -6,9 +6,38 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
+
+
+    public function validateTest(){
+        return view('validate-test');
+    }
+
+    public function validateCheck(Request $request){
+
+        $request->validate([
+            // "title" => "required",
+            // "gender" => "required|in:male,female,other",
+            // "township" => "required|exists:townships,name",
+            // "skills" => "required|array|max:3",
+            // "skills.*" => "exists:skills,title",
+            // "photo" => "required|file|max:1024|mimes:jpg,png|dimensions:max_width=1000",
+            // "certificates" => "required|array|max:3",
+            "certificates.*" => "file|max:1024|mimes:jpg,png"
+        ]);
+        return $request;
+    }
+
+
+
+
+
+
+
+
     public function index()
     {
         $articles = Article::when(request()->has("keyword"), function ($query) {

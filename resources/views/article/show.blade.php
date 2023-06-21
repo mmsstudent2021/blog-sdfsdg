@@ -26,6 +26,10 @@
                     </div>
                 </div>
 
+                
+
+                <img src="{{ asset(Storage::url($article->thumbnail)) }}" height="200" alt="">
+
 
 
             </div>

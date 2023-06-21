@@ -29,14 +29,28 @@
                             <tr>
                                 <td>{{ $article->id }}</td>
                                 <td>
-                                    {{ $article->title }}
-                                    <br>
-                                    <span class=" small text-black-50">
-                                        {{ Str::limit($article->description, 30, '...') }}
-                                    </span>
+                                    <div class=" d-flex">
+                                        @if ($article->thumbnail)
+                                            <img class=" rounded list-thumbnail me-2"
+                                                src="{{ asset(Storage::url($article->thumbnail)) }}" width="50"
+                                                height="50" alt="">
+                                        @else
+                                            <img class=" rounded list-thumbnail me-2"
+                                                src="https://raw.githubusercontent.com/julien-gargot/images-placeholder/master/placeholder-square.png"
+                                                alt="">
+                                        @endif
+                                        <div class="">
+                                            {{ Str::words($article->title, 5) }}
+                                            <br>
+                                            <span class=" small text-black-50">
+                                                {{ Str::limit($article->description, 30, '...') }}
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </td>
                                 <td>
-                                    {{ $article->category->title ?? "Unkown" }}
+                                    {{ $article->category->title ?? 'Unkown' }}
                                 </td>
 
                                 @can('admin-only')

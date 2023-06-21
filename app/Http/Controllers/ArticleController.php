@@ -51,12 +51,24 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+
+        $savedThumbnail = null;
+        if($request->hasFile('thumbnail')){
+            // dd($request->file('thumbnail')->extension());
+            $savedThumbnail = $request->file("thumbnail")->store("public/thumbnail");
+            // $thumbnail = $request->file("thumbnail");
+            // $savedThumbnail = $thumbnail->storeAs("public","hello.".$thumbnail->extension());
+            // $request->thumbnail;
+            // return $savedThumbnail;
+        }
+        // return $request;
         $article = Article::create([
             "title" => $request->title,
             "slug" => Str::slug($request->title),
             "description" => $request->description,
             "excerpt" => Str::words($request->description,30,"..."),
             "category_id" => $request->category,
+            "thumbnail" => $savedThumbnail,
             "user_id" => Auth::id()
         ]);
         return redirect()->route("article.index")->with("message", $article->title . " is created");

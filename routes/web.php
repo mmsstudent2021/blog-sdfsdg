@@ -24,6 +24,8 @@ Route::controller(PageController::class)->group(function(){
     Route::get("/","index")->name("index");
     Route::get("/article-detail/{slug}","show")->name("detail");
     Route::get("/category/{slug}","categorized")->name("categorized");
+    Route::get("validate-test",'validateTest')->name("validateTest");
+    Route::post("validate-check",'validateCheck')->name("validateCheck");
 });
 Route::resource("comment",CommentController::class)->only(["store","update","destroy"])->middleware("auth");
 
