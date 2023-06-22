@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->prefix("dashboard")->group(function () {
     Route::resource("article", ArticleController::class);
+    Route::resource("photo", PhotoController::class);
     Route::resource("category", CategoryController::class)->middleware("can:viewAny," . Category::class);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/user-list', [HomeController::class, 'users'])->name('users')->can('admin-only');

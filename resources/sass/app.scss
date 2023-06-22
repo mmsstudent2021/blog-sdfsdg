@@ -17,8 +17,16 @@
 
 .single-photo-update{
     height: 150px;
+    background-size: auto 100px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .upload-logo:nth-child(2){
     display: none;
+}
+
+.article-img{
+    width: 100px;
+    height: 100px;
 }

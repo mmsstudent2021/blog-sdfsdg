@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class=" form-label" for="">Article Photo</label>
+                            <label class=" form-label" for="">Thumbnail</label>
                             <div class=" border bg-light rounded single-photo-update d-flex justify-content-center align-items-center">
 
                                 <div class=" text-center upload-logo">
@@ -48,6 +48,19 @@
 
                             <input form="createArticle" type="file" accept="image/jpeg,image/png" class=" real-upload d-none form-control @error('thumbnail') is-invalid @enderror" name="thumbnail">
                             @error('thumbnail')
+                                <div class=" invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class=" form-label" for="">Photos</label>
+
+
+                            <input form="createArticle" type="file" accept="image/jpeg,image/png" class=" form-control @error('photos') is-invalid @enderror" name="photos[]" multiple>
+                            @error('photos')
+                                <div class=" invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            @error('photos.*')
                                 <div class=" invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

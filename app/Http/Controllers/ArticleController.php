@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use App\Models\Photo;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -52,6 +54,8 @@ class ArticleController extends Controller
     public function store(StoreArticleRequest $request)
     {
 
+        // return $request;
+
         $savedThumbnail = null;
         if($request->hasFile('thumbnail')){
             // dd($request->file('thumbnail')->extension());
@@ -71,6 +75,30 @@ class ArticleController extends Controller
             "thumbnail" => $savedThumbnail,
             "user_id" => Auth::id()
         ]);
+
+        if($request->hasFile('photos')){
+            $photos = $request->file('photos');
+            $savedPhotos = [];
+            foreach($photos as $photo){
+                $savedPhoto = $photo->store("public/photo");
+                $savedPhotos[] = [
+                    "article_id" => $article->id,
+                    "address"=> $savedPhoto,
+                    "created_at" => now(),
+                    "updated_at" => now()
+
+                ];
+            }
+            Photo::insert($savedPhotos);
+
+
+            //  foreach($photos as $photo){
+            //     $savedPhoto = $photo->store("public/photo");
+            //     $savedPhotos [] = [ "address" => $savedPhoto];
+            //  }
+            //  $article->photos()->createMany($savedPhotos);
+        }
+
         return redirect()->route("article.index")->with("message", $article->title . " is created");
     }
 
@@ -105,12 +133,27 @@ class ArticleController extends Controller
 
         Gate::authorize('update', $article);
 
+        // return $request;
+
+
+
+        $savedThumbnail = $article->thumbnail;
+        if($request->hasFile('thumbnail')){
+            Storage::delete($article->thumbnail);
+
+            $savedThumbnail = $request->file("thumbnail")->store("public/thumbnail");
+
+        }
+
+
         $article->update([
             "title" => $request->title,
             "slug" => Str::slug($request->title),
             "description" => $request->description,
             "excerpt" => Str::words($request->description,30,"..."),
-            "category_id" => $request->category
+            "category_id" => $request->category,
+            "thumbnail" => $savedThumbnail,
+            "user_id" => Auth::id()
         ]);
 
         return redirect()->route("article.index")->with("message", $article->title . " is updated");

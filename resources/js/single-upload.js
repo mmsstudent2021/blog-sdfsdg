@@ -5,6 +5,7 @@ console.log("single upload");
 
 const singleUploadDiv = document.querySelector(".single-photo-update");
 const realUpload = document.querySelector(".real-upload");
+const multipleUpload = document.querySelector(".multiple-upload");
 const uploadPreview = document.querySelector(".upload-preview");
 
 singleUploadDiv.addEventListener("click",() => {
@@ -17,7 +18,11 @@ realUpload.addEventListener("change",(event) => {
     const reader = new FileReader();
     const img = new Image();
     const div = document.createElement("div");
+
     const delButton = document.createElement("button");
+
+    singleUploadDiv.style.backgroundImage = null;
+
     img.style.height = 100 + "px";
     div.classList.add("d-flex","flex-column");
     delButton.innerHTML = `<i class=' bi bi-trash'></i>`;
@@ -39,4 +44,8 @@ realUpload.addEventListener("change",(event) => {
     })
 
     reader.readAsDataURL(file)
+})
+
+multipleUpload.addEventListener("change",(event) => {
+    event.target.parentElement.submit()
 })
