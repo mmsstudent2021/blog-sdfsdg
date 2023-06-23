@@ -22,6 +22,7 @@ class ArticleController extends Controller
         $articles = Article::when(request()->has("keyword"), function ($query) {
             $query->where(function (Builder $builder) {
                 $keyword = request()->keyword;
+
                 $builder->where("title", "like", "%" . $keyword . "%");
                 $builder->orWhere("description", "like", "%" . $keyword . "%");
             });
@@ -36,6 +37,10 @@ class ArticleController extends Controller
             // ->dd()
             ->latest("id")
             ->paginate(7)->withQueryString();
+
+
+
+
 
         return view("article.index", compact('articles'));
     }
