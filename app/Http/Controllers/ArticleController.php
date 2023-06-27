@@ -27,6 +27,8 @@ class ArticleController extends Controller
                 $builder->orWhere("description", "like", "%" . $keyword . "%");
             });
         })
+            ->when(request()->has('show') == "trash",fn($query) => $query->withTrashed() )
+
             ->when(Auth::user()->role !== 'admin', function ($query) {
                 $query->where("user_id", Auth::id());
             })
@@ -110,9 +112,14 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        return view('article.show', compact('article'));
+
+        if(request()->has("restore") == "true"){
+            Article::withTrashed()->findOrFail($id)->restore();
+        }
+
+        return view('article.show', ["article" => Article::findOrFail($id)]);
     }
 
     /**
@@ -170,7 +177,28 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         Gate::authorize("delete", $article);
+
+
+
+        // foreach($article->photos as $photo){
+        //     Storage::delete($photo->address);
+        // }
+        // Photo::where("article_id",$article->id)->delete();
+
+        // $article->photos()->delete();
+
+        // dd($article->photos()->pluck("address")->toArray());
+
+        // Storage::delete($article->photos->pluck("address")->toArray());
         $article->delete();
+        return redirect()->route("article.index")->with("message", "Article is deleted");
+    }
+
+    public function forceDelete($id){
+
+        $article = Article::withTrashed()->findOrFail($id);
+
+        $article->forceDelete();
         return redirect()->route("article.index")->with("message", "Article is deleted");
     }
 }

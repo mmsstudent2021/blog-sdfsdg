@@ -39,3 +39,5 @@
         {{ $articles->onEachSide(1)->links() }}
     </div>
 @endsection
+
+

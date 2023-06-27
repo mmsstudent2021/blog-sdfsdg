@@ -18,8 +18,9 @@ return new class extends Migration
             $table->longText("description");
             $table->text("excerpt");
             $table->string("thumbnail")->nullable();
-            $table->foreignId("category_id");
+            $table->foreignId("category_id")->constrained()->cascadeOnDelete();
             $table->foreignId("user_id");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

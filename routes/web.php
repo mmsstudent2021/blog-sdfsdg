@@ -34,6 +34,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->prefix("dashboard")->group(function () {
     Route::resource("article", ArticleController::class);
+    Route::delete("force-delete/{id}",[ArticleController::class,"forceDelete"])->name("article.forceDelete");
     Route::resource("photo", PhotoController::class);
     Route::resource("category", CategoryController::class)->middleware("can:viewAny," . Category::class);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
