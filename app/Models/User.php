@@ -22,6 +22,14 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
+    public function photos(){
+        return $this->hasManyThrough(Photo::class,Article::class);
+    }
+
+    public function visitors(){
+        return $this->hasManyThrough(Visitor::class,Article::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

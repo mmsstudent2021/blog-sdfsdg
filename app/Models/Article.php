@@ -26,4 +26,12 @@ class Article extends Model
     public function photos(){
         return $this->hasMany(Photo::class);
     }
+
+    public function visitors(){
+        return $this->hasMany(Visitor::class);
+    }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }

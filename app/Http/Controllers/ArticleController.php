@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Photo;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -36,6 +37,7 @@ class ArticleController extends Controller
                 $sortType = request()->title ?? 'asc';
                 $query->orderBy("title", $sortType);
             })
+            ->withCount("visitors")
             // ->dd()
             ->latest("id")
             ->paginate(7)->withQueryString();
@@ -59,6 +61,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreArticleRequest $request)
+    // public function store(Request $request)
     {
 
         // return $request;
@@ -106,6 +109,10 @@ class ArticleController extends Controller
             //  $article->photos()->createMany($savedPhotos);
         }
 
+        $article->tags()->attach($request->tags);
+
+
+
         return redirect()->route("article.index")->with("message", $article->title . " is created");
     }
 
@@ -119,7 +126,9 @@ class ArticleController extends Controller
             Article::withTrashed()->findOrFail($id)->restore();
         }
 
-        return view('article.show', ["article" => Article::findOrFail($id)]);
+
+
+        return view('article.show', ["article" => Article::with("visitors")->findOrFail($id)]);
     }
 
     /**
@@ -142,6 +151,8 @@ class ArticleController extends Controller
         // if(Gate::denies('article-update',$article)){
         //     return abort(403);
         // }
+
+        // return $request;
 
         Gate::authorize('update', $article);
 
@@ -168,6 +179,8 @@ class ArticleController extends Controller
             "user_id" => Auth::id()
         ]);
 
+        $article->tags()->sync($request->tags);
+        
         return redirect()->route("article.index")->with("message", $article->title . " is updated");
     }
 
@@ -198,6 +211,7 @@ class ArticleController extends Controller
 
         $article = Article::withTrashed()->findOrFail($id);
 
+        $article->tags()->detach();
         $article->forceDelete();
         return redirect()->route("article.index")->with("message", "Article is deleted");
     }

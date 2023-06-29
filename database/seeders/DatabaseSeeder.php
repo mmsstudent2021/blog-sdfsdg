@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
-            ArticleSeeder::class
+            ArticleSeeder::class,
+            VisitorSeeder::class,
+            TagSeeder::class
         ]);
 
         // \App\Models\User::factory()->create([

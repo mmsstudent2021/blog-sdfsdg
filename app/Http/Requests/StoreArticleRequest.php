@@ -21,6 +21,7 @@ class StoreArticleRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             "title" => "required|min:10|max:255",
             "description" => "required|min:100",
@@ -28,6 +29,8 @@ class StoreArticleRequest extends FormRequest
             "thumbnail" => "nullable|file|max:500|min:50|mimes:png,jpg",
             "photos" => "required|array|max:3",
             "photos.*" => "file|max:500|min:50|mimes:png,jpg",
+            "tags" => "nullable|array|max:3",
+            "tags.*" => "exists:tags,id"
         ];
     }
 }

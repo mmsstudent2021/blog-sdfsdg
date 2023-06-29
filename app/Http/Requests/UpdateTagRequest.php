@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateArticleRequest extends FormRequest
+class UpdateTagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,11 +22,7 @@ class UpdateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => "required|min:10|max:255",
-            "description" => "required|min:100",
-            "category" => "required|exists:categories,id",
-            "tags" => "nullable|array|max:3",
-            "tags.*" => "exists:tags,id"
+            //
         ];
     }
 }

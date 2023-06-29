@@ -126,6 +126,31 @@
                             @enderror
                         </div>
 
+                        {{-- {{ dd($article->tags->pluck("pivot.tag_id")->toArray()) }} --}}
+
+                        <div class="mb-3">
+                            <label class=" form-label">Select Your tags</label>
+                            @foreach (App\Models\Tag::all() as $tag)
+                                <div class="form-check">
+                                    <input form="updateArticle" class="form-check-input" type="checkbox" name="tags[]"
+                                        id="tag_{{ $tag->id }}"
+                                        {{ in_array($tag->id, old('tags', $article->tags->pluck("pivot.tag_id")->toArray())) ? 'checked' : '' }}
+                                        value="{{ $tag->id }}">
+
+                                    <label class="form-check-label" for="tag_{{ $tag->id }}">
+                                        {{ $tag->title }}
+                                    </label>
+                                </div>
+                            @endforeach
+
+                            @error('tags')
+                                <div class=" text-danger small">{{ $message }}</div>
+                            @enderror
+                            @error('tags.*')
+                                <div class=" text-danger small">{{ $message }}</div>
+                            @enderror
+                        </div>
+
 
 
                         <button form="updateArticle" class=" w-100 d-block btn btn-primary">Update Article</button>

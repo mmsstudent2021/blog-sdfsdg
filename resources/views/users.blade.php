@@ -11,8 +11,10 @@
                         <tr>
                             <th>#</th>
                             <th>Information</th>
+                            <th>Photo Count</th>
                             <th>Category Count</th>
                             <th>Article Count</th>
+                            <th>Visitors Count</th>
                             <th>Control</th>
                             <th>Updated At</th>
                             <th>Created At</th>
@@ -30,10 +32,18 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{ $user->categories->count() }}
+                                    {{ $user->photos_count }}
+
                                 </td>
                                 <td>
-                                    {{ $user->articles->count() }}
+                                    {{ $user->categories_count }}
+                                </td>
+                                <td>
+                                    {{ $user->articles_count }}
+                                </td>
+
+                                <td>
+                                    {{ $user->visitors_count }}
                                 </td>
 
                                 <td>

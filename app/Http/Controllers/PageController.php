@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,7 +15,13 @@ class PageController extends Controller
 
 
     public function validateTest(){
-        return view('validate-test');
+        $date = Carbon::now();
+        $startDate = Carbon::now()->subMonths(3);
+
+        $period = CarbonPeriod::create($startDate,$date);
+
+        return $period;
+        // return view('validate-test');
     }
 
     public function validateCheck(Request $request){

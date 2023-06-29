@@ -42,6 +42,34 @@
 
                 @endforeach
 
+                <br>
+                <br>
+
+                <h4>Visitors</h4>
+
+                <table class=" table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User</th>
+                            <td>Time</td>
+                            <td>Date</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($article->visitors as $visitor)
+
+                        <tr>
+                            <td>{{ $visitor->id }}</td>
+                            <td>{{ $visitor->user->name }}</td>
+                            <td>{{ $visitor->created_at->format("h : i : s") }}</td>
+                            <td>{{ $visitor->created_at->format("d M Y") }}</td>
+                        </tr>
+
+                        @endforeach
+                    </tbody>
+                </table>
+
 
 
 

@@ -18,6 +18,7 @@
                         <tr>
                             <th>#</th>
                             <th>Article</th>
+                            <th>Visitors</th>
                             <th>Category</th>
                             @can('admin-only')
                                 <th>Owner</th>
@@ -51,6 +52,9 @@
                                         </div>
                                     </div>
 
+                                </td>
+                                <td>
+                                    {{ $article->visitors_count }}
                                 </td>
                                 <td>
                                     {{ $article->category->title ?? 'Unkown' }}
