@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FirstMail;
 use App\Models\Article;
 use App\Models\Category;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
 
+    public function mailTest(){
+        Mail::to("mmsstudent2021@gmail.com")->send(new FirstMail());
+        return "aung p";
+    }
 
     public function validateTest(){
         $date = Carbon::now();

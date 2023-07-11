@@ -25,6 +25,7 @@ Route::controller(PageController::class)->group(function(){
     Route::get("/","index")->name("index");
     Route::get("/article-detail/{slug}","show")->name("detail");
     Route::get("/category/{slug}","categorized")->name("categorized");
+    Route::get("mail-test",'mailTest')->name("mailTest");
     Route::get("validate-test",'validateTest')->name("validateTest");
     Route::post("validate-check",'validateCheck')->name("validateCheck");
 });
