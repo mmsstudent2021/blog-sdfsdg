@@ -2,25 +2,26 @@
 
 namespace App\Mail;
 
+use App\Models\Article;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class FirstMail extends Mailable
+class CommentMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-
 
     /**
      * Create a new message instance.
      */
-    public function __construct(public $title, public $description)
+    public function __construct(public $userName, public Article $article)
     {
-
+        //
     }
 
     /**
@@ -29,7 +30,8 @@ class FirstMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'First Mail',
+            subject: 'Post Commenting',
+            from: new Address("info@mmsdev.site","Information Center")
         );
     }
 
@@ -39,11 +41,7 @@ class FirstMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.firstmail',
-            // with: [
-            //     "body" => $this->description
-            // ]
-
+            view: 'email.comment',
         );
     }
 

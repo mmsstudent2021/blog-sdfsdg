@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Mail\NewPostMail;
 use App\Models\Article;
 use App\Models\Photo;
+use App\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -111,6 +114,13 @@ class ArticleController extends Controller
 
         $article->tags()->attach($request->tags);
 
+        $receivers = User::where("id","!=",Auth::id())->limit(3)->get();
+
+        foreach($receivers as $receiver){
+
+            Mail::to($receiver->email)->send(new NewPostMail($receiver->name,$article));
+        }
+
 
 
         return redirect()->route("article.index")->with("message", $article->title . " is created");
@@ -180,7 +190,7 @@ class ArticleController extends Controller
         ]);
 
         $article->tags()->sync($request->tags);
-        
+
         return redirect()->route("article.index")->with("message", $article->title . " is updated");
     }
 

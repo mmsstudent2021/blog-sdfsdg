@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Mail\CommentMail;
+use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
 {
@@ -38,6 +41,11 @@ class CommentController extends Controller
             $comment->parent_id = $request->parent_id;
         }
         $comment->save();
+
+        $article = Article::find($request->article_id);
+        Mail::to($article->user->email)
+        ->send(new CommentMail(Auth::user()->name, $article));
+
         return redirect()->back();
     }
 

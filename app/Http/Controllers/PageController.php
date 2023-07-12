@@ -16,7 +16,7 @@ class PageController extends Controller
 {
 
     public function mailTest(){
-        Mail::to("mmsstudent2021@gmail.com")->send(new FirstMail());
+        Mail::to("mmsstudent2021@gmail.com")->send(new FirstMail("I'm title"," I'm description"));
         return "aung p";
     }
 
