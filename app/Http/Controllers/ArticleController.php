@@ -114,12 +114,7 @@ class ArticleController extends Controller
 
         $article->tags()->attach($request->tags);
 
-        $receivers = User::where("id","!=",Auth::id())->limit(3)->get();
-
-        foreach($receivers as $receiver){
-
-            Mail::to($receiver->email)->send(new NewPostMail($receiver->name,$article));
-        }
+        
 
 
 

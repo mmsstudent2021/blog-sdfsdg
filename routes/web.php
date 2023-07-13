@@ -31,7 +31,7 @@ Route::controller(PageController::class)->group(function(){
 });
 Route::resource("comment",CommentController::class)->only(["store","update","destroy"])->middleware("auth");
 
-Auth::routes();
+Auth::routes(["verify" => true]);
 
 Route::middleware(['auth'])->prefix("dashboard")->group(function () {
     Route::resource("article", ArticleController::class);
