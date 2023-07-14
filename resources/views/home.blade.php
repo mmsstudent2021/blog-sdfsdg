@@ -4,11 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
+            <x-card card-title="Dashboard" classes="mb-3">
+                @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -21,8 +19,25 @@
                     <code>
                         {{ Auth::user() }}
                     </code>
-                </div>
-            </div>
+
+                    <br>
+                    <br>
+
+                    <x-alert message="min ga lar par" color="success" />
+                    <x-alert message="san kyi tar par" color="info" />
+                    <x-alert />
+            </x-card>
+
+            <x-card card-title="Card 2" >
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Et veniam iure architecto quas quia, alias ex libero accusantium dicta nihil quibusdam cumque, magnam labore? Eos suscipit magnam architecto harum asperiores.
+                </p>
+                <a href="#" class="btn btn-primary">Hello</a>
+            </x-card>
+            <x-card card-title="Card 3">
+
+            </x-card>
+
         </div>
     </div>
 </div>

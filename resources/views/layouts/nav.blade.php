@@ -19,6 +19,10 @@
                 <!-- Authentication Links -->
                 @auth
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                    </li>
+
                     @can('viewAny', App\Models\Category::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('category.create') }}">Create Category</a>

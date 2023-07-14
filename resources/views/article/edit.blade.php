@@ -5,7 +5,8 @@
             <div class="col-12">
                 <h3>Edit Article</h3>
                 <hr>
-                <form id="updateArticle" action="{{ route('article.update', $article->id) }}" method="post" enctype="multipart/form-data">
+                <form id="updateArticle" action="{{ route('article.update', $article->id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('put')
                 </form>
@@ -72,12 +73,13 @@
                             <label class=" form-label" for="">Photos</label>
 
 
-                            <form id="articlePhotoUpload" action="{{ route("photo.store") }}" enctype="multipart/form-data" method="post">
+                            <form id="articlePhotoUpload" action="{{ route('photo.store') }}" enctype="multipart/form-data"
+                                method="post">
                                 @csrf
                                 <input type="hidden" name="article_id" value="{{ $article->id }}">
                                 <input type="file" accept="image/jpeg,image/png"
-                                class=" multiple-upload form-control  @error('photos') is-invalid @enderror" name="photos[]"
-                                multiple>
+                                    class=" multiple-upload form-control  @error('photos') is-invalid @enderror"
+                                    name="photos[]" multiple>
 
                             </form>
                             @error('photos')
@@ -87,22 +89,22 @@
                                 <div class=" invalid-feedback">{{ $message }}</div>
                             @enderror
 
-                            @if(!is_null($article->photos))
+                            @if (!is_null($article->photos))
                                 <label class=" form-label mt-2" for="">Current Photos</label>
                                 <div class="d-flex">
 
                                     @foreach ($article->photos as $photo)
-
-                                    <div class=" position-relative">
-                                        <img src="{{ asset(Storage::url($photo->address)) }}" class="article-img" alt="">
-                                            <form action="{{ route("photo.destroy",$photo->id) }}" method="post">
+                                        <div class=" position-relative">
+                                            <img src="{{ asset(Storage::url($photo->address)) }}" class="article-img"
+                                                alt="">
+                                            <form action="{{ route('photo.destroy', $photo->id) }}" method="post">
                                                 @csrf
-                                                @method("delete")
+                                                @method('delete')
                                                 <button class=" btn btn-sm btn-danger position-absolute bottom-0 end-0">
                                                     <i class=" bi bi-trash"></i>
                                                 </button>
-                                        </form>
-                                    </div>
+                                            </form>
+                                        </div>
                                     @endforeach
                                 </div>
                             @endif
@@ -114,8 +116,7 @@
                                 name="category">
 
                                 @foreach (App\Models\Category::all() as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ old('category',$article->category_id) == $category->id ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" @selected(old('category', $article->category_id) == $category->id)>
                                         {{ $category->title }}
                                     </option>
                                 @endforeach
@@ -134,7 +135,7 @@
                                 <div class="form-check">
                                     <input form="updateArticle" class="form-check-input" type="checkbox" name="tags[]"
                                         id="tag_{{ $tag->id }}"
-                                        {{ in_array($tag->id, old('tags', $article->tags->pluck("pivot.tag_id")->toArray())) ? 'checked' : '' }}
+                                        @checked(in_array($tag->id, old('tags', $article->tags->pluck('pivot.tag_id')->toArray())))
                                         value="{{ $tag->id }}">
 
                                     <label class="form-check-label" for="tag_{{ $tag->id }}">
@@ -162,7 +163,5 @@
 @endsection
 
 @push('script')
-    @vite(["resources/js/single-upload.js"])
-
+    @vite(['resources/js/single-upload.js'])
 @endpush
-

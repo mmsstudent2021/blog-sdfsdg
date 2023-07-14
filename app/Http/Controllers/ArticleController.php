@@ -18,6 +18,12 @@ use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('verified');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -114,7 +120,7 @@ class ArticleController extends Controller
 
         $article->tags()->attach($request->tags);
 
-        
+
 
 
 
